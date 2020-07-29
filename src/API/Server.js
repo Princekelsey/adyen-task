@@ -20,7 +20,7 @@ const Server = {
 
   searchFlight: async (flyFrom, flyTo, dateFrom, dateTo) => {
     const url = `${KIWI_URL}/v2/search`;
-    return axios.get(url, {
+    return await axios.get(url, {
       headers: { apikey: process.env.VUE_APP_KIWI_KEY },
       params: {
         fly_from: flyFrom,
@@ -41,14 +41,16 @@ const Server = {
 
   getLocationKey: async (city) => {
     const url = `${WEATHER_URL}/locations/v1/cities/search`;
-    return axios.get(url, {
+    return await axios.get(url, {
       params: { apikey: process.env.VUE_APP_ACCU_KEY, q: city },
     });
   },
 
   getForecast: async (locationKey) => {
     const url = `${WEATHER_URL}/forecasts/v1/daily/5day/${locationKey}`;
-    return axios.get(url, { params: { apikey: process.env.VUE_APP_ACCU_KEY } });
+    return await axios.get(url, {
+      params: { apikey: process.env.VUE_APP_ACCU_KEY },
+    });
   },
 };
 
